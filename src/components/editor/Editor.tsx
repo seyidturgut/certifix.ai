@@ -26,7 +26,7 @@ export default function Editor() {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
             const user = JSON.parse(storedUser);
-            fetch(`http://localhost:5001/api/users/${user.id}/usage`)
+            fetch(`/api/users/${user.id}/usage`)
                 .then(res => res.json())
                 .then(data => setUserPlan(data))
                 .catch(err => console.error("Error fetching user plan:", err));
@@ -35,7 +35,7 @@ export default function Editor() {
 
     useEffect(() => {
         if (loadingDesignId) {
-            fetch(`http://localhost:5001/api/designs/${loadingDesignId}`)
+            fetch(`/api/designs/${loadingDesignId}`)
                 .then(res => res.json())
                 .then(data => {
                     if (data && data.design_json) {
@@ -49,7 +49,7 @@ export default function Editor() {
                 .catch(err => console.error("Error loading design:", err));
         } else if (editCertificateId) {
             // ... (keep certificate loading logic same)
-            fetch(`http://localhost:5001/api/certificates/${editCertificateId}`)
+            fetch(`/api/certificates/${editCertificateId}`)
                 .then(res => res.json())
                 .then(data => {
                     if (data && data.design_json) {
@@ -170,8 +170,8 @@ export default function Editor() {
             };
 
             const url = isUpdate
-                ? `http://localhost:5001/api/designs/${idToSave}`
-                : "http://localhost:5001/api/designs";
+                ? `/api/designs/${idToSave}`
+                : "/api/designs";
 
             const method = isUpdate ? "PUT" : "POST";
 

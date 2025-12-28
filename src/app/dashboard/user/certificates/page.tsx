@@ -30,7 +30,7 @@ export default function UserCertificatesPage() {
     const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
     const router = useRouter();
 
-    const API_URL = "http://localhost:5001/api";
+    const API_URL = "/api";
 
     useEffect(() => {
         const storedUser = localStorage.getItem("user");

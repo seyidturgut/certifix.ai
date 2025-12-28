@@ -623,7 +623,7 @@ export default function LandingPageClient() {
                         <div className="space-y-6">
                             <div className="flex items-center gap-3">
                                 <div className="relative w-6 h-6 invert brightness-0">
-                                    <Image src="/certifix-logo.png" alt="Certifix" fill />
+                                    <Image src="/certifix-logo.png" alt="Certifix" fill unoptimized />
                                 </div>
                                 <span className="font-bold text-xl uppercase tracking-tighter">Certifix</span>
                             </div>

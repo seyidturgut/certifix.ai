@@ -21,7 +21,7 @@ export default function UserDesignsPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const router = useRouter();
 
-    const API_URL = "http://localhost:5001/api";
+    const API_URL = "/api";
 
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
@@ -126,7 +126,7 @@ export default function UserDesignsPage() {
                                             e.stopPropagation();
                                             if (confirm("Bu tasarımı silmek istediğinize emin misiniz?")) {
                                                 try {
-                                                    await fetch(`http://localhost:5001/api/designs/${design.id}`, { method: 'DELETE' });
+                                                    await fetch(`/api/designs/${design.id}`, { method: 'DELETE' });
                                                     setDesigns(prev => prev.filter(d => d.id !== design.id));
                                                 } catch (err) { console.error(err); }
                                             }

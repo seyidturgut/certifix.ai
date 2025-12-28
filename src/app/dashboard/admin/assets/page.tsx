@@ -38,7 +38,7 @@ export default function AdminAssetsPage() {
 
     const fetchAssets = async () => {
         try {
-            const res = await fetch("http://localhost:5001/api/assets");
+            const res = await fetch("/api/assets");
             const data = await res.json();
             setAssets(data);
         } catch (error) {
@@ -60,7 +60,7 @@ export default function AdminAssetsPage() {
                     reader.onloadend = async () => {
                         const base64Content = reader.result as string;
                         try {
-                            const res = await fetch("http://localhost:5001/api/assets", {
+                            const res = await fetch("/api/assets", {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
                                 body: JSON.stringify({
@@ -100,7 +100,7 @@ export default function AdminAssetsPage() {
     const handleDelete = async (id: string) => {
         if (!confirm("Bu varlığı silmek istediğinize emin misiniz?")) return;
         try {
-            const res = await fetch(`http://localhost:5001/api/assets/${id}`, {
+            const res = await fetch(`/api/assets/${id}`, {
                 method: "DELETE"
             });
             if (res.ok) {
@@ -118,7 +118,7 @@ export default function AdminAssetsPage() {
 
         try {
             await Promise.all(selectedAssets.map(id =>
-                fetch(`http://localhost:5001/api/assets/${id}`, { method: "DELETE" })
+                fetch(`/api/assets/${id}`, { method: "DELETE" })
             ));
             fetchAssets();
             setSelectedAssets([]);

@@ -21,7 +21,7 @@ export default function UsagePage() {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
             const user = JSON.parse(storedUser);
-            fetch(`http://localhost:5001/api/users/${user.id}/usage`)
+            fetch(`/api/users/${user.id}/usage`)
                 .then(res => res.json())
                 .then(data => {
                     setUsageData(data);

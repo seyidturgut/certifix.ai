@@ -33,7 +33,7 @@ type Customer = {
     joined: string;
 };
 
-const API_URL = "http://localhost:5001/api";
+const API_URL = "/api";
 
 export default function CustomersPage() {
     const [customers, setCustomers] = useState<Customer[]>([]);

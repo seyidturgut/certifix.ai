@@ -42,7 +42,7 @@ export default function AdminPlansPage() {
 
     const fetchPlans = async () => {
         try {
-            const res = await fetch("http://localhost:5001/api/admin/plans");
+            const res = await fetch("/api/admin/plans");
             const data = await res.json();
             setPlans(data);
         } catch (err) {
@@ -56,8 +56,8 @@ export default function AdminPlansPage() {
         setLoading(true);
         try {
             const url = isNew
-                ? "http://localhost:5001/api/admin/plans"
-                : `http://localhost:5001/api/admin/plans/${planData.id}`;
+                ? "/api/admin/plans"
+                : `/api/admin/plans/${planData.id}`;
 
             const res = await fetch(url, {
                 method: isNew ? "POST" : "PATCH",
@@ -84,7 +84,7 @@ export default function AdminPlansPage() {
     const handleDelete = async (id: string) => {
         if (!confirm("Bu paketi silmek istediğinize emin misiniz?")) return;
         try {
-            const res = await fetch(`http://localhost:5001/api/admin/plans/${id}`, { method: "DELETE" });
+            const res = await fetch(`/api/admin/plans/${id}`, { method: "DELETE" });
             if (res.ok) {
                 setMessage({ type: "success", text: "Paket silindi." });
                 fetchPlans();

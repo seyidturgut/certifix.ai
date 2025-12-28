@@ -17,7 +17,7 @@ export default function SidebarPanel({ activeTab, onClose, editor }: SidebarPane
             const storedUser = localStorage.getItem("user");
             if (storedUser) {
                 const user = JSON.parse(storedUser);
-                fetch(`http://localhost:5001/api/designs?userId=${user.id}`)
+                fetch(`/api/designs?userId=${user.id}`)
                     .then(res => res.json())
                     .then(data => setDesigns(data))
                     .catch(err => console.error("Designs fetch error:", err));
@@ -26,7 +26,7 @@ export default function SidebarPanel({ activeTab, onClose, editor }: SidebarPane
 
         if (activeTab === "shapes" || activeTab === "images") {
             const type = activeTab === "shapes" ? "element" : "image";
-            fetch(`http://localhost:5001/api/assets?type=${type}`)
+            fetch(`/api/assets?type=${type}`)
                 .then(res => res.json())
                 .then(data => setAssets(data))
                 .catch(err => console.error("Assets fetch error:", err));
@@ -279,7 +279,7 @@ export default function SidebarPanel({ activeTab, onClose, editor }: SidebarPane
                                                 const storedUser = localStorage.getItem("user");
                                                 const userId = storedUser ? JSON.parse(storedUser).id : null;
 
-                                                const res = await fetch("http://localhost:5001/api/assets", {
+                                                const res = await fetch("/api/assets", {
                                                     method: "POST",
                                                     headers: { "Content-Type": "application/json" },
                                                     body: JSON.stringify({
@@ -300,7 +300,7 @@ export default function SidebarPanel({ activeTab, onClose, editor }: SidebarPane
                                                 }
 
                                                 // Refresh assets
-                                                const refreshRes = await fetch(`http://localhost:5001/api/assets?type=image`);
+                                                const refreshRes = await fetch(`/api/assets?type=image`);
                                                 const data = await refreshRes.json();
                                                 setAssets(data);
                                             } catch (err) {

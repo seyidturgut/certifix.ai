@@ -43,7 +43,7 @@ export default function IssueCertificatePage() {
             const user = JSON.parse(storedUser);
             // Fetch templates AND user designs
             Promise.all([
-                fetch(`http://localhost:5001/api/designs?userId=${user.id}`).then(res => res.json())
+                fetch(`/api/designs?userId=${user.id}`).then(res => res.json())
             ]).then(([allDesigns]) => {
                 setDesigns(allDesigns);
             });
@@ -276,7 +276,7 @@ export default function IssueCertificatePage() {
                     preview_image: previewImage
                 };
 
-                const res = await fetch("http://localhost:5001/api/certificates", {
+                const res = await fetch("/api/certificates", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(certData)

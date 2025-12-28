@@ -37,7 +37,7 @@ export default function ProfilePage() {
             });
 
             // Fetch fresh data from server
-            fetch(`http://localhost:5001/api/users/${parsedUser.id}`)
+            fetch(`/api/users/${parsedUser.id}`)
                 .then(res => {
                     if (res.ok) return res.json();
                     throw new Error("Failed to fetch user");
@@ -65,7 +65,7 @@ export default function ProfilePage() {
         setLoading(true);
         setMessage({ type: "", text: "" });
         try {
-            const res = await fetch(`http://localhost:5001/api/users/${user.id}`, {
+            const res = await fetch(`/api/users/${user.id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

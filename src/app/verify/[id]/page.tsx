@@ -25,7 +25,7 @@ export default function VerifyPage() {
     // Fetch data immediately but in background
     useEffect(() => {
         if (params.id) {
-            const url = `http://localhost:5001/api/certificates/${params.id}${shareToken ? `?s=${shareToken}` : ''}`;
+            const url = `/api/certificates/${params.id}${shareToken ? `?s=${shareToken}` : ''}`;
             fetch(url)
                 .then(res => {
                     if (!res.ok) throw new Error("Sertifika bulunamadı");
