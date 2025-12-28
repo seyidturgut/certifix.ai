@@ -73,7 +73,7 @@ export default function LoginPage() {
                 <div className="relative z-10">
                     <Link href="/" className="flex items-center gap-3 w-fit">
                         <div className="relative w-10 h-10 invert brightness-0">
-                            <Image src="/certifix-logo.png" alt="Certifix Logo" fill className="object-contain" />
+                            <Image src="/certifix-logo.png" alt="Certifix Logo" fill className="object-contain" unoptimized />
                         </div>
                         <span className="font-bold text-2xl tracking-tight text-white">Certifix</span>
                     </Link>
@@ -86,6 +86,7 @@ export default function LoginPage() {
                             alt="Security Visual"
                             fill
                             className="object-contain drop-shadow-[0_50px_50px_rgba(0,0,0,0.3)]"
+                            unoptimized
                         />
                     </div>
                     <div className="space-y-4 max-w-md">
@@ -111,7 +112,7 @@ export default function LoginPage() {
                 <div className="lg:hidden absolute top-12 left-12">
                     <Link href="/" className="flex items-center gap-3">
                         <div className="relative w-8 h-8">
-                            <Image src="/certifix-logo.png" alt="Certifix Logo" fill className="object-contain" />
+                            <Image src="/certifix-logo.png" alt="Certifix Logo" fill className="object-contain" unoptimized />
                         </div>
                         <span className="font-bold text-xl tracking-tight text-brand-blue">Certifix</span>
                     </Link>
