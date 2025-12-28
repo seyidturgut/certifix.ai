@@ -52,7 +52,7 @@ export default function LandingPageClient() {
     };
 
     useEffect(() => {
-        fetch("http://localhost:5001/api/plans")
+        fetch("/api/plans")
             .then(res => res.json())
             .then(data => {
                 setPlans(data);
@@ -104,7 +104,7 @@ export default function LandingPageClient() {
                 <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
                         <div className="relative w-8 h-8">
-                            <Image src="/certifix-logo.png" alt="Certifix Logo" fill className="object-contain" />
+                            <Image src="/certifix-logo.png" alt="Certifix Logo" fill className="object-contain" unoptimized />
                         </div>
                         <span className="font-bold text-xl tracking-tight text-[#1E3A8A]">Certifix</span>
                     </div>

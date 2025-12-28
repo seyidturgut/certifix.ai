@@ -38,7 +38,7 @@ export function TopNavbar() {
         <header className="h-20 bg-white border-b border-slate-100 flex items-center justify-between px-10 sticky top-0 z-40">
             <div className="flex items-center gap-3 mr-8">
                 <div className="relative w-8 h-8">
-                    <Image src="/certifix-logo.png" alt="Certifix Logo" fill className="object-contain" />
+                    <Image src="/certifix-logo.png" alt="Certifix Logo" fill className="object-contain" unoptimized />
                 </div>
                 <span className="font-bold text-xl tracking-tight text-brand-blue">Certifix</span>
             </div>
