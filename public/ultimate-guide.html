@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certifix.ai | Teknik ve Ürün Rehberi (2026)</title>
+    <link rel="icon" href="/certifix-logo.png" type="image/png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --brand-blue: #1E3A8A;
+            --brand-green: #10B981;
+            --brand-amber: #F59E0B;
+            --slate-900: #0F172A;
+            --slate-800: #1E293B;
+            --slate-700: #334155;
+            --slate-500: #64748B;
+            --slate-100: #F1F5F9;
+            --white: #FFFFFF;
+            --bg: #F8FAFC;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--slate-900);
+            line-height: 1.7;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            background: white;
+            padding: 80px 0;
+            border-bottom: 1px solid var(--slate-100);
+            text-align: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: var(--brand-blue);
+        }
+
+        .logo img {
+            width: 48px;
+            height: 48px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--brand-blue);
+            color: white;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--slate-500);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .nav-sticky {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 1px solid var(--slate-100);
+            z-index: 100;
+            padding: 15px 0;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--slate-500);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--brand-blue);
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--slate-500);
+        }
+
+        /* Content Blocks */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--slate-100);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: var(--brand-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: var(--brand-blue);
+        }
+
+        .card p {
+            color: var(--slate-600);
+            font-size: 0.95rem;
+        }
+
+        /* Detailed Feature List */
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--brand-blue);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.5rem;
+        }
+
+        .feature-text h4 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+        }
+
+        .feature-text p {
+            color: var(--slate-600);
+        }
+
+        /* Technical Specs */
+        .specs {
+            background: var(--slate-900);
+            color: white;
+            border-radius: 40px;
+            padding: 80px 40px;
+        }
+
+        .spec-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .spec-label {
+            font-weight: 700;
+            color: var(--brand-amber);
+        }
+
+        /* Roadmap */
+        .roadmap {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .roadmap-step {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .step-num {
+            width: 40px;
+            height: 40px;
+            background: var(--brand-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        footer {
+            background: var(--white);
+            border-top: 1px solid var(--slate-100);
+            padding: 60px 0;
+            text-align: center;
+            color: var(--slate-500);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="/certifix-logo.png" alt="Certifix Logo">
+                Certifix.ai
+            </div>
+            <div class="tag">Teknik İnceleme ve Ürün Vizyonu</div>
+            <h1>Sertifikalarınız Artık <br>Sadece Bir Dosya Değil.</h1>
+            <p class="subtitle">Certifix.ai ile eğitim ve etkinlikleriniz için doğrulanabilir, paylaşıma hazır ve
+                güvenilir dijital sertifikalar oluşturun.</p>
+        </div>
+    </header>
+
+    <div class="nav-sticky">
+        <div class="container">
+            <div class="nav-links">
+                <a href="#ne-ise-yarar">Nedir?</a>
+                <a href="#ozellikler">Özellikler</a>
+                <a href="#teknik">Teknik Altyapı</a>
+                <a href="#senaryolar">Senaryolar</a>
+                <a href="#gelecek">Gelecek Vizyonu</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- What it does & Why -->
+    <section id="ne-ise-yarar" class="container">
+        <div class="section-title">
+            <h2>Neden Yapıldı?</h2>
+            <p>Fiziksel belgelerin dijitalleştiği dünyada, güven tek eksik halkaydı.</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <h3>Güven Problemini Çözer</h3>
+                <p>Adobe Photoshop ile saniyeler içinde sahte başarı belgeleri üretilebiliyor. Certifix, her bir belgeyi
+                    benzersiz bir hash ve QR kod ile mühürleyerek bu problemi kökten çözer.</p>
+            </div>
+            <div class="card">
+                <h3>Zaman ve Operasyon</h3>
+                <p>1000 kişilik bir zirve sonunda herkese isme özel sertifika hazırlayıp mail atmak haftalar sürer.
+                    Certifix ile bu işlem yaklaşık 180 saniye (tasarım dahil) sürer.</p>
+            </div>
+            <div class="card">
+                <h3>Prestij ve Paylaşılabilirlik</h3>
+                <p>LinkedIn entegrasyonu sayesinde kullanıcılar sertifikalarını profesyonel ağlarında tek tıkla
+                    paylaşır, kurumun bilinirliği organik olarak artar.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Features -->
+    <section id="ozellikler" style="background: white;">
+        <div class="container">
+            <div class="section-title">
+                <h2>A'dan Z'ye Özellik Seti</h2>
+                <p>Bir sertifika makinesinden çok daha fazlası; bir kurumsal varlık yönetim merkezi.</p>
+            </div>
+
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <div class="feature-icon">✨</div>
+                    <div class="feature-text">
+                        <h4>Certifix Editor</h4>
+                        <p>Web tabanlı Certifix Editor ile sıfırdan tasarım yapabilir, mevcut şablonları
+                            düzenleyebilirsiniz. Akıllı katman yönetimi ve sürükle-bırak desteği ile tasarım için başka
+                            bir programa ihtiyacınız kalmaz.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-text">
+                        <h4>Batch Generation (Toplu Üretim)</h4>
+                        <p>Excel veya CSV formatındaki katılımcı listelerini yükleyin. Sistem, binlerce satır veriyi
+                            anında işler ve her katılımcı için isme özel, yüksek çözünürlüklü dijital belgeleri üretir.
+                        </p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <div class="feature-text">
+                        <h4>QR Kod ve Verification Engine</h4>
+                        <p>Sertifikaların üzerine otomatik yerleştirilen QR kodlar, tarafsız bir doğrulama saymasına
+                            yönlendirir. Belgenin durumu (aktif/iptal), veriliş tarihi ve katılımcı bilgileri güvenli
+                            şekilde sorgulanır.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon">📧</div>
+                    <div class="feature-text">
+                        <h4>Otomatik E-Bülten ve Gönderim</h4>
+                        <p>Akıllı E-Posta Gönderim Servisi entegrasyonu ile sertifikalar katılımcıların e-posta
+                            adreslerine kurumsal
+                            bir şablonla anında gönderilir. Açılma ve tıklama istatistikleri takip edilebilir.</p>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </section>
+
+    <!-- Technical Specs -->
+    <section id="teknik" class="container">
+        <div class="specs">
+            <h2 style="margin-bottom: 40px; color: white;">Teknik Spesifikasyonlar</h2>
+            <div class="spec-item">
+                <span class="spec-label">Modern Stack</span>
+                <span>Next.js 14+, React, Node.js, Express</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Veri Katmanı</span>
+                <span>MySQL (Relational Integrity) & File Storage Optimization</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">SEO ve Indexing</span>
+                <span>Programlanabilir Robots.txt ve NoIndex kontrolü (Dashboard gizliliği için)</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Görüntü İşleme</span>
+                <span>Server-side High DPI PDF/Image Rendering Engine</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Güvenlik</span>
+                <span>JWT Authentication, bcrypt şifreleme, Audit Logging</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">API Desteği</span>
+                <span>SMTP/Email API ve LinkedIn Sharing API entegrasyonları</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage Scenarios -->
+    <section id="senaryolar" class="container">
+        <div class="section-title">
+            <h2>Gerçek Hayat Senaryoları</h2>
+        </div>
+        <div class="grid">
+            <div class="card" style="border-top: 5px solid var(--brand-green);">
+                <h4>Üniversite Sürekli Eğitim Merkezi</h4>
+                <p>Eğitim biter bitmez sistem katılımcı listesini alır, sertifikaları basar, PDF'leri arşivler ve
+                    öğrencilere başarı mesajıyla birlikte gönderir.</p>
+            </div>
+            <div class="card" style="border-top: 5px solid var(--brand-blue);">
+                <h4>Uluslararası Teknoloji Zirvesi</h4>
+                <p>Hibrit bir etkinlikte fiziksel katılımcılar yaka kartlarındaki QR kod ile dijital sertifikalarına
+                    anında erişir, LinkedIn profillerine eklerler.</p>
+            </div>
+            <div class="card" style="border-top: 5px solid var(--brand-amber);">
+                <h4>Kurumsal IK Departmanı</h4>
+                <p>Zorunlu iş güvenliği eğitimini tamamlayan çalışanların belgeleri sistemde tutulur, geçerlilik süresi
+                    dolmaya yakın IK uzmanına uyarı gönderilir.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Vision -->
+    <section id="gelecek" style="background: var(--slate-100);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Gelecek Vizyonu (Roadmap)</h2>
+                <p>Certifix sadece bir araç değil, global bir doğrulama standardı olma yolunda ilerliyor.</p>
+            </div>
+            <div class="roadmap">
+                <div class="roadmap-step">
+                    <div class="step-num">1</div>
+                    <div><strong>Web3 & Blockchain Kaydı:</strong> Sertifikaların değişmezliğini garanti altına almak
+                        için blockchain ağına hash kaydı.</div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-num">2</div>
+                    <div><strong>AI Tasarım Asistanı:</strong> Prompt girerek etkinliğinize uygun sertifika
+                        şablonlarının otomatik üretilmesi.</div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-num">3</div>
+                    <div><strong>Dinamik Rozet Sistemi:</strong> Sertifikaların yanı sıra sosyal medya için özel dijital
+                        badge (rozet) desteği.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="container" style="text-align: center;">
+        <h2>Bu Vizyonu Keşfetmeye Hazır Mısınız?</h2>
+        <p style="margin: 20px 0 40px; color: var(--slate-500);">Certifix.ai ile kurumsal itibarınızı dijitalde
+            mühürleyin.</p>
+        <a href="mailto:info@certifix.ai"
+            style="padding: 20px 50px; background: var(--brand-blue); color: white; border-radius: 12px; text-decoration: none; font-weight: 800; display: inline-block;">Hemen
+            Demo Talep Edin</a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Certifix.ai | Geleceğin Sertifikasyon Standartları</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.6;">Bu dosya kurumsal sunum ve teknik
+                bilgilendirme amacıyla üretilmiştir.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

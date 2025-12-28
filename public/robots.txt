@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /verify/
+Disallow: /dashboard/
+Disallow: /login
+Disallow: /register
+Disallow: /api/
+
+Sitemap: https://certifix.ai/sitemap.xml

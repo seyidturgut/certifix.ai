@@ -1,0 +1,28 @@
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+export default function DashboardPage() {
+    const router = useRouter();
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            const user = JSON.parse(storedUser);
+            if (user.role === 'SUPER_ADMIN') {
+                router.replace("/dashboard/admin");
+            } else {
+                router.replace("/dashboard/user");
+            }
+        } else {
+            router.replace("/login");
+        }
+    }, [router]);
+
+    return (
+        <div className="flex items-center justify-center min-h-[400px]">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-blue"></div>
+        </div>
+    );
+}
