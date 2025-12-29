@@ -56,7 +56,7 @@ export function Sidebar() {
             {/* ... logo section ... */}
             <div className="p-8 flex items-center gap-3">
                 <div className="w-8 h-8 relative invert brightness-0">
-                    <Image src="/certifix-logo.png" alt="Certifix" fill className="object-contain" />
+                    <Image src="/certifix-logo.png" alt="Certifix" fill className="object-contain" unoptimized />
                 </div>
                 <span className="font-bold text-2xl tracking-tighter">Certifix</span>
             </div>
