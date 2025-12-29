@@ -25,6 +25,22 @@ export default function RegisterPage() {
         }));
     };
 
+    const [registrationEnabled, setRegistrationEnabled] = useState<boolean | null>(null);
+
+    React.useEffect(() => {
+        // Check system settings
+        fetch('/api/admin/settings')
+            .then(res => res.json())
+            .then(data => {
+                if (data.registration_enabled === false) {
+                    setRegistrationEnabled(false);
+                } else {
+                    setRegistrationEnabled(true);
+                }
+            })
+            .catch(err => console.error(err));
+    }, []);
+
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -57,6 +73,70 @@ export default function RegisterPage() {
             setLoading(false);
         }
     };
+
+    if (registrationEnabled === false) {
+        return (
+            <div className="min-h-screen flex bg-white font-sans">
+                {/* Left Side (Same as before) */}
+                <div className="hidden lg:flex w-1/2 bg-brand-blue relative overflow-hidden flex-col justify-between p-16">
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-blue via-brand-blue to-brand-green/20 pointer-events-none" />
+                    <div className="absolute bottom-[-20%] right-[-10%] w-[80%] h-[80%] bg-brand-green/[0.05] rounded-full blur-[120px] pointer-events-none" />
+
+                    <div className="relative z-10">
+                        <Link href="/" className="flex items-center gap-3 w-fit">
+                            <div className="relative w-10 h-10 invert brightness-0">
+                                <Image src="/certifix-logo.png" alt="Certifix Logo" fill className="object-contain" unoptimized />
+                            </div>
+                            <span className="font-bold text-2xl tracking-tight text-white">Certifix</span>
+                        </Link>
+                    </div>
+
+                    <div className="relative z-10 space-y-8">
+                        <div className="relative w-full aspect-square max-w-[500px] mx-auto opacity-50 grayscale transition-all duration-1000">
+                            <Image
+                                src="/auth-visual.png"
+                                alt="Security Visual"
+                                fill
+                                className="object-contain drop-shadow-[0_50px_50px_rgba(0,0,0,0.3)]"
+                                unoptimized
+                            />
+                        </div>
+                        <div className="space-y-4 max-w-md">
+                            <h2 className="text-4xl font-extrabold text-white leading-tight">Şu an davetiye sistemiyle çalışıyoruz.</h2>
+                            <p className="text-white/60 text-lg font-medium leading-relaxed">
+                                Yeni üye alımları geçici bir süre için durdurulmuştur.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="relative z-10 pt-8 border-t border-white/10 flex items-center justify-between text-white/40 text-[10px] font-bold uppercase tracking-widest">
+                        <span>© 2026 Certifix</span>
+                    </div>
+                </div>
+
+                {/* Right Side: Closed Message */}
+                <div className="flex-1 flex flex-col justify-center items-center p-8 md:p-16 lg:p-24 bg-white relative">
+                    <div className="w-full max-w-[440px] space-y-8 text-center">
+                        <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <ShieldCheck size={40} className="text-slate-300" />
+                        </div>
+                        <h1 className="text-3xl font-black text-slate-900 tracking-tight">Kayıtlar Kapalı</h1>
+                        <p className="text-slate-500 text-lg font-medium leading-relaxed">
+                            Sistem yoğunluğunu yönetmek adına yeni üyelikleri şu an kabul etmiyoruz. Lütfen daha sonra tekrar deneyiniz veya mevcut hesabınızla giriş yapınız.
+                        </p>
+
+                        <Link
+                            href="/login"
+                            className="inline-flex items-center gap-2 text-brand-blue font-black text-lg hover:underline mt-8"
+                        >
+                            <ArrowLeft size={20} />
+                            Giriş Ekranına Dön
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen flex bg-white font-sans">

@@ -209,17 +209,40 @@ export default function LoginPage() {
                         <div className="text-center pt-4">
                             <p className="text-slate-500 font-bold text-sm">
                                 Hesabınız yok mu?{' '}
-                                <Link
-                                    href="/register"
-                                    className="text-brand-blue font-black hover:underline"
-                                >
-                                    Hemen Kayıt Ol
-                                </Link>
+                                <span className={loading ? 'opacity-50' : ''}>
+                                    <RegistrationLink />
+                                </span>
                             </p>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+    );
+}
+
+function RegistrationLink() {
+    const [enabled, setEnabled] = useState(true);
+
+    React.useEffect(() => {
+        fetch('/api/admin/settings')
+            .then(r => r.json())
+            .then(d => {
+                if (d.registration_enabled === false) setEnabled(false);
+            })
+            .catch(() => { });
+    }, []);
+
+    if (!enabled) {
+        return <span className="text-slate-400 cursor-not-allowed" title="Kayıtlar şu an kapalı">Kayıt Kapalı</span>;
+    }
+
+    return (
+        <Link
+            href="/register"
+            className="text-brand-blue font-black hover:underline"
+        >
+            Hemen Kayıt Ol
+        </Link>
     );
 }
