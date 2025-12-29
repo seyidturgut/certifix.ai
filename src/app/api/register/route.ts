@@ -1,4 +1,3 @@
-```typescript
 import { NextResponse } from 'next/server';
 import { pool } from '@/lib/db';
 import { getSystemSettings } from '@/lib/settings';
@@ -6,6 +5,7 @@ import { getSystemSettings } from '@/lib/settings';
 export async function POST(request: Request) {
     // 1. Check System Settings
     const settings = await getSystemSettings();
+
     if (settings.registration_enabled === false) {
         return NextResponse.json(
             { error: 'Yeni kullanıcı kayıtları şu an için durdurulmuştur. Lütfen daha sonra tekrar deneyiniz.' },
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     try {
         const body = await request.json();
         const { full_name, email, company_name, phone, password } = body;
-        const id = `user_${ Date.now() } `;
+        const id = `user_${Date.now()}`;
 
         try {
             await pool.query(
