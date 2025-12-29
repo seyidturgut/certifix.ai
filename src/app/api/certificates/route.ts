@@ -38,10 +38,10 @@ export async function POST(request: Request) {
         const { plan, usage } = await getUserPlanAndUsage(user_id);
 
         // 1. Check if this is a NEW training name
-        const [[{ exists }]] = await pool.query<RowDataPacket[]>('SELECT COUNT(*) as exists FROM certificates WHERE user_id = ? AND group_name = ?', [user_id, group_name]);
+        const [[{ training_exists }]] = await pool.query<RowDataPacket[]>('SELECT COUNT(*) as training_exists FROM certificates WHERE user_id = ? AND group_name = ?', [user_id, group_name]);
 
         // Note: RowDataPacket returns numbers as numbers usually, but checking strict equality
-        if ((exists as any) === 0 && usage.trainings >= plan.limits.trainings) {
+        if ((training_exists as any) === 0 && usage.trainings >= plan.limits.trainings) {
             return NextResponse.json({ error: 'Eğitim limiti aşıldı. Lütfen paketinizi yükseltin.', limit_reached: 'trainings' }, { status: 403 });
         }
 
