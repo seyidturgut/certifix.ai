@@ -56,15 +56,15 @@ export default function TechnicalSettingsPage() {
                 body: JSON.stringify(settings)
             });
             if (res.ok) {
-                // Assuming you have a toast library or just simple alert
-                // using simple alert if sonner not available globally yet, but trying to follow modern pattern
-                alert('Ayarlar başarıyla kaydedildi.');
+                toast.success('Ayarlar başarıyla kaydedildi.', {
+                    description: 'Sistem parametreleri güncellendi.'
+                });
             } else {
-                alert('Kaydederken hata oluştu.');
+                toast.error('Kaydederken hata oluştu.');
             }
         } catch (error) {
             console.error(error);
-            alert('Bağlantı hatası.');
+            toast.error('Bağlantı hatası.');
         } finally {
             setSaving(false);
         }
