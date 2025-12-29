@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Settings,
     Globe,
@@ -9,11 +9,71 @@ import {
     Chrome,
     Shield,
     CheckCircle2,
-    Save
+    Save,
+    Menu
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
+import { toast } from 'sonner';
 
 export default function TechnicalSettingsPage() {
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+    const [settings, setSettings] = useState<any>({
+        maintenance_mode: false,
+        registration_enabled: true,
+        beta_features: false,
+        google_login: true,
+        linkedin_login: false,
+        microsoft_login: false,
+        // ... placeholders
+        google_analytics_id: '',
+        google_verification: ''
+    });
+
+    useEffect(() => {
+        fetch('/api/admin/settings')
+            .then(res => res.json())
+            .then(data => {
+                setSettings(prev => ({ ...prev, ...data }));
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error(err);
+                setLoading(false);
+            });
+    }, []);
+
+    const handleChange = (key: string, value: any) => {
+        setSettings(prev => ({ ...prev, [key]: value }));
+    };
+
+    const saveSettings = async () => {
+        setSaving(true);
+        try {
+            const res = await fetch('/api/admin/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(settings)
+            });
+            if (res.ok) {
+                // Assuming you have a toast library or just simple alert
+                // using simple alert if sonner not available globally yet, but trying to follow modern pattern
+                alert('Ayarlar başarıyla kaydedildi.');
+            } else {
+                alert('Kaydederken hata oluştu.');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Bağlantı hatası.');
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    if (loading) {
+        return <div className="p-12 text-center text-slate-400">Ayarlar yükleniyor...</div>;
+    }
+
     return (
         <div className="space-y-8 animate-in fade-in duration-500 pb-12">
             <div>
@@ -40,6 +100,8 @@ export default function TechnicalSettingsPage() {
                             <input
                                 type="text"
                                 placeholder="G-XXXXXXXXXX"
+                                value={settings.google_analytics_id || ''}
+                                onChange={(e) => handleChange('google_analytics_id', e.target.value)}
                                 className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue outline-none transition-all font-bold text-slate-700"
                             />
                         </div>
@@ -48,6 +110,8 @@ export default function TechnicalSettingsPage() {
                             <input
                                 type="text"
                                 placeholder="google-site-verification=..."
+                                value={settings.google_verification || ''}
+                                onChange={(e) => handleChange('google_verification', e.target.value)}
                                 className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue outline-none transition-all font-bold text-slate-700"
                             />
                         </div>
@@ -68,25 +132,31 @@ export default function TechnicalSettingsPage() {
 
                     <div className="space-y-4">
                         {[
-                            { name: "Google Login", status: "Aktif", active: true },
-                            { name: "LinkedIn Login", status: "Yapılandırılmadı", active: false },
-                            { name: "Microsoft 365", status: "Yapılandırılmadı", active: false },
+                            { key: 'google_login', name: "Google Login", status: settings.google_login ? "Aktif" : "Pasif" },
+                            { key: 'linkedin_login', name: "LinkedIn Login", status: settings.linkedin_login ? "Aktif" : "Pasif" },
+                            { key: 'microsoft_login', name: "Microsoft 365", status: settings.microsoft_login ? "Aktif" : "Pasif" },
                         ].map((provider, i) => (
                             <div key={i} className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl">
                                 <span className="font-bold text-slate-700">{provider.name}</span>
                                 <div className="flex items-center gap-3">
                                     <span className={cn(
                                         "text-[10px] font-black uppercase tracking-widest",
-                                        provider.active ? "text-emerald-500" : "text-slate-400"
-                                    )}>{provider.status}</span>
-                                    <button className="text-[10px] font-black text-brand-blue uppercase tracking-widest hover:underline">DÜZENLE</button>
+                                        settings[provider.key] ? "text-emerald-500" : "text-slate-400"
+                                    )}>{settings[provider.key] ? 'AKTİF' : 'PASİF'}</span>
+
+                                    <button
+                                        onClick={() => handleChange(provider.key, !settings[provider.key])}
+                                        className="text-[10px] font-black text-brand-blue uppercase tracking-widest hover:underline"
+                                    >
+                                        {settings[provider.key] ? 'KAPAT' : 'AÇ'}
+                                    </button>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                {/* System Parameters */}
+                {/* System Parameters (DYNAMIC NOW) */}
                 <div className="bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-soft space-y-8">
                     <div className="flex items-center gap-4 border-b border-slate-50 pb-6">
                         <div className="p-3 bg-brand-amber/5 text-brand-amber rounded-2xl">
@@ -100,22 +170,25 @@ export default function TechnicalSettingsPage() {
 
                     <div className="space-y-4">
                         {[
-                            { label: "Bakım Modu", desc: "Sistemi tüm kullanıcılara kapatır.", active: false },
-                            { label: "Yeni Kayıt Alımı", desc: "Yeni müşteri kaydını aktif/pasif yapar.", active: true },
-                            { label: "Beta Özellikler", desc: "Tüm kullanıcılara beta kanalını açar.", active: false },
+                            { key: "maintenance_mode", label: "Bakım Modu", desc: "Sistemi tüm kullanıcılara kapatır." },
+                            { key: "registration_enabled", label: "Yeni Kayıt Alımı", desc: "Yeni müşteri kaydını aktif/pasif yapar." },
+                            { key: "beta_features", label: "Beta Özellikler", desc: "Tüm kullanıcılara beta kanalını açar." },
                         ].map((item, i) => (
                             <div key={i} className="flex items-center justify-between p-4 border border-slate-50 rounded-2xl">
                                 <div>
                                     <p className="font-bold text-slate-900 leading-none">{item.label}</p>
                                     <p className="text-slate-400 text-xs mt-2 font-medium">{item.desc}</p>
                                 </div>
-                                <div className={cn(
-                                    "w-12 h-6 rounded-full relative transition-colors cursor-pointer",
-                                    item.active ? "bg-brand-blue" : "bg-slate-200"
-                                )}>
+                                <div
+                                    onClick={() => handleChange(item.key, !settings[item.key])}
+                                    className={cn(
+                                        "w-12 h-6 rounded-full relative transition-colors cursor-pointer",
+                                        settings[item.key] ? "bg-brand-blue" : "bg-slate-200"
+                                    )}
+                                >
                                     <div className={cn(
                                         "w-4 h-4 bg-white rounded-full absolute top-1 transition-all",
-                                        item.active ? "right-1" : "left-1"
+                                        settings[item.key] ? "right-1" : "left-1"
                                     )} />
                                 </div>
                             </div>
@@ -134,9 +207,17 @@ export default function TechnicalSettingsPage() {
                             Certifix, kurumların verilerini AES-256 ve SSL/TLS 1.3 standartlarında korur. Teknik ayarlar üzerinden güvenlik eşiklerini dinamik olarak yönetebilirsiniz.
                         </p>
                     </div>
-                    <button className="w-full py-4 bg-white/10 hover:bg-white/20 text-white rounded-2xl font-bold transition-all flex items-center justify-center gap-2 relative z-10">
-                        <Save size={20} />
-                        Değişiklikleri Uygula
+                    <button
+                        onClick={saveSettings}
+                        disabled={saving}
+                        className="w-full py-4 bg-white/10 hover:bg-white/20 text-white rounded-2xl font-bold transition-all flex items-center justify-center gap-2 relative z-10 disabled:opacity-50"
+                    >
+                        {saving ? (
+                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        ) : (
+                            <Save size={20} />
+                        )}
+                        {saving ? 'Kaydediliyor...' : 'Değişiklikleri Uygula'}
                     </button>
                 </div>
             </div>
