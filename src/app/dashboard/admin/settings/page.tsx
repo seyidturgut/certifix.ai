@@ -34,7 +34,7 @@ export default function TechnicalSettingsPage() {
         fetch('/api/admin/settings')
             .then(res => res.json())
             .then(data => {
-                setSettings(prev => ({ ...prev, ...data }));
+                setSettings((prev: any) => ({ ...prev, ...data }));
                 setLoading(false);
             })
             .catch(err => {
@@ -44,7 +44,7 @@ export default function TechnicalSettingsPage() {
     }, []);
 
     const handleChange = (key: string, value: any) => {
-        setSettings(prev => ({ ...prev, [key]: value }));
+        setSettings((prev: any) => ({ ...prev, [key]: value }));
     };
 
     const saveSettings = async () => {
